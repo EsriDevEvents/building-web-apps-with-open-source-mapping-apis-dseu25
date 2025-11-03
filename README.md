@@ -1,5 +1,3 @@
-> **Note:** Please follow the [repository conventions](https://github.com/EsriDevEvents/contributor-guides/blob/main/conventions.md#conventions-for-repositories) and [slugify](https://slugify.online/) the title of your repo
-
 # Building Web Apps with Open Source Mapping APIs
 
 Learn the main differences between the most popular open-source mapping APIs such as Leaflet, OpenLayers, and Maplibre GL JS and how to integrate them with ArcGIS services such as basemaps, routing, geocoding and vector tiles with the help of ArcGIS REST JS.
