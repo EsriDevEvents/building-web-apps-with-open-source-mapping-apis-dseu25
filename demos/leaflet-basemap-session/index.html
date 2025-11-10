@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Esri Leaflet Tutorials: Display a map</title>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.19/dist/esri-leaflet.js"></script>
+
+    <script src="https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"></script>
+    <script src="config.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #323232;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script type="module">
+
+      let access_token;
+
+      /* Method 1: basemap tiles usage */
+      /* Regular developer credential */
+      // access_token = ARCGIS_APIKEY
+
+      /* Method 2: basemap session token */
+      /* Get a new session token using a regular developer credential */
+      const createBasemapSession = async (accessToken) => {
+        const basemapSession = await fetch(`https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/sessions/start?` + new URLSearchParams({
+            styleFamily:"arcgis", // Basemap styles the session token can access
+            durationSeconds: 43200, // Maximum duration (12hrs)
+        }).toString(),{
+            method:'GET',
+            headers: {
+              "Authorization":`Bearer ${accessToken}`
+            }
+        })
+        return await basemapSession.json();
+      }
+
+      let basemapSession = await createBasemapSession(ARCGIS_APIKEY);
+      access_token = basemapSession.sessionToken;
+
+
+      //************************************************
+      /* LOAD THE MAP */
+      const basemapEnum = "arcgis/outdoor";
+
+      const map = L.map("map", { minZoom: 2 });
+      map.setView([50.1127, 8.6501], 15);
+
+      L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+        token: access_token
+      }).addTo(map);
+
+    </script>
+
+  </body>
+
+</html>

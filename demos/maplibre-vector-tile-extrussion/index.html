@@ -1,0 +1,98 @@
+<html>
+
+<head>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>ArcGIS hosted vector tile service extrusion using MapLibre GL JS</title>
+  <style>
+    html,
+    body,
+    #map {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #323232;
+    }
+    
+    .maplibregl-ctrl-bottom-right {
+      margin-left: 50px;
+    }
+    
+  </style>
+  
+  <!-- Load MapLibre GL JS from CDN -->
+  <script src=https://unpkg.com/maplibre-gl@5.8.0/dist/maplibre-gl.js></script>
+  <link href=https://unpkg.com/maplibre-gl@5.8.0/dist/maplibre-gl.css rel="stylesheet" />
+  <!-- Load MapLibre ArcGIS from CDN -->
+  <script src="https://unpkg.com/@esri/maplibre-arcgis@1.0.0/dist/umd/maplibre-arcgis.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+  <style>.github-fork-ribbon:before { background-color: #333; }</style>
+  <script src="config.js"></script>
+</head>
+
+
+<body>
+  <a class="github-fork-ribbon" href="https://github.com/hhkaos/arcgis-vector-tile-maplibre-extrusion" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+
+  <div id="map"></div>
+  
+  <script>    
+    const map = new maplibregl.Map({
+      container: 'map',
+      center: [-74.01180, 40.71585], // Manhattan
+      zoom: 17.58,
+      bearing: 30.47,  
+      pitch: 60,    // max tilt
+      attributionControl: false
+    });
+    
+    const basemapStyle = maplibreArcGIS.BasemapStyle.applyStyle(map, {
+      style: 'arcgis/outdoor',
+      token: ARCGIS_APIKEY
+    });
+    
+    map.on('load', async ()=>{
+      const parcelsVector = 'https://vectortileservices3.arcgis.com/dZPVKZjpIJj1FMgY/arcgis/rest/services/NYC_buildings_from_OSM_with_height_and_type_VTL/VectorTileServer';
+      
+       const vector = await maplibreArcGIS.VectorTileLayer.fromUrl(parcelsVector,{
+        token: ARCGIS_APIKEY
+       });
+      const sourceId = Object.keys(vector.style.sources)[0];
+      // Find any existing style layer to read its "source-layer" name
+      const anyVectorLayer = vector.style.layers.find(l => l['source-layer']);
+      const sourceLayerName = anyVectorLayer['source-layer'];
+      vector.addSourcesTo(map);
+      
+      map.addLayer({
+        ...vector.layer,
+        id: 'parcels-extruded',
+        type: 'fill-extrusion',
+        source: sourceId,
+        'source-layer': sourceLayerName,
+        paint: PAINT_PROPS
+      });
+    });
+    
+    map.on('moveend', () => {
+      const center = map.getCenter(); // returns a LngLat object
+      const zoom = map.getZoom();
+      const bearing = map.getBearing(); // rotation in degrees
+      const pitch = map.getPitch();     // tilt in degrees
+      
+      console.log('📍 Camera settings:');
+      console.log(`center: [${center.lng.toFixed(5)}, ${center.lat.toFixed(5)}]`);
+      console.log(`zoom: ${zoom.toFixed(2)}`);
+      console.log(`bearing: ${bearing.toFixed(2)}`);
+      console.log(`pitch: ${pitch.toFixed(2)}`);
+    });
+    
+  </script>
+  
+</body>
+
+
+</html>
