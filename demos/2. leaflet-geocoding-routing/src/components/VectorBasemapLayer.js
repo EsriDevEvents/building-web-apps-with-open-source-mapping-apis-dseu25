@@ -4,7 +4,7 @@ import {
     createPathHook
 } from '@react-leaflet/core';
 import { vectorBasemapLayer } from 'esri-leaflet-vector';
-import { apiKey } from '../App';
+import { apiKey } from '../App.js';
 import { AppContext } from "../App.js";
 import { useMap } from "react-leaflet";
 import { useEffect,useContext } from 'react';

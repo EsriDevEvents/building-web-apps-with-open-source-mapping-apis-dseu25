@@ -4,8 +4,8 @@ import "@esri/calcite-components/dist/calcite/calcite.css";
 
 import PlacesLayer from './components/PlacesLayer.js';
 import VectorBasemapLayer from './components/VectorBasemapLayer.js';
-import SearchControl from './components/SearchControl';
-import PlaceDetails from './components/PlaceDetails';
+import SearchControl from './components/SearchControl.js';
+import PlaceDetails from './components/PlaceDetails.js';
 import PlacesResults from './components/PlacesResults.js';
 import GeocodeSuggestions from './components/NavGeocodeSuggest.js';
 
@@ -13,7 +13,7 @@ import { createContext, useState } from 'react';
 import { MapContainer, ZoomControl, LayersControl } from 'react-leaflet';
 import { ApiKeyManager } from '@esri/arcgis-rest-request';
 import { CalciteFlow } from '@esri/calcite-components-react';
-import "@esri/calcite-components/dist/components/calcite-flow";
+import "@esri/calcite-components/dist/components/calcite-flow.js";
 import NavigationControl from './components/NavigationControl.js';
 import RouteLayer from './components/RouteLayer.js';
 import PlaceMarker from './components/PlaceMarker.js';

@@ -4,11 +4,11 @@ import { AppContext } from "../App.js";
 
 import { useMap } from "react-leaflet";
 import { useState,useContext } from 'react';
-import "@esri/calcite-components/dist/components/calcite-input";
-import "@esri/calcite-components/dist/components/calcite-button";
-import "@esri/calcite-components/dist/components/calcite-chip-group";
-import "@esri/calcite-components/dist/components/calcite-chip";
-import "@esri/calcite-components/dist/components/calcite-avatar";
+import "@esri/calcite-components/dist/components/calcite-input.js";
+import "@esri/calcite-components/dist/components/calcite-button.js";
+import "@esri/calcite-components/dist/components/calcite-chip-group.js";
+import "@esri/calcite-components/dist/components/calcite-chip.js";
+import "@esri/calcite-components/dist/components/calcite-avatar.js";
 import { CalciteInput, CalciteButton, CalciteChipGroup, CalciteChip, CalciteAvatar } from '@esri/calcite-components-react';
 
 // SearchControl.js: Places search bar at the top of the map containing a place search text box and category search chips
