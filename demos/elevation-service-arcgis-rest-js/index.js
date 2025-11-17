@@ -1,6 +1,6 @@
 import { ARCGIS_APIKEY } from "./config.js";
 
-// npm i @esri/arcgis-rest-places @esri/arcgis-rest-request --save
+// npm i @esri/arcgis-rest-elevation @esri/arcgis-rest-request --save
 import { ApiKeyManager } from "@esri/arcgis-rest-request";
 import { findElevationAtPoint } from "@esri/arcgis-rest-elevation";
 findElevationAtPoint({

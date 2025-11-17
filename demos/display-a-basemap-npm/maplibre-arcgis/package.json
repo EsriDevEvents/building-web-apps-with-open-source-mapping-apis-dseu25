@@ -1,8 +1,8 @@
 {
-  "name": "leaflet-geocoding-control",
+  "name": "maplibre-arcgis-display-map",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "author": "Raul Jimenez",
   "type": "commonjs",
   "main": "main.js",
