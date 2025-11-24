@@ -6,7 +6,6 @@ import {
 import { vectorBasemapLayer } from 'esri-leaflet-vector';
 import { apiKey } from '../App.js';
 import { AppContext } from "../App.js";
-import { useMap } from "react-leaflet";
 import { useEffect,useContext } from 'react';
 
 // VectorBasemapLayer component: Renders a vector basemap layer using Esri Leaflet Vector
@@ -15,7 +14,7 @@ import { useEffect,useContext } from 'react';
 // Initialization function used to create layer
 const createVectorBasemap = (props,context) => {
     const basemap = new vectorBasemapLayer(props.styleName,{
-        token:apiKey, // ArcGIS API key
+        token: apiKey, // ArcGIS API key
         places:props.places || 'attributed'
     })
     return createElementObject(basemap, context)
