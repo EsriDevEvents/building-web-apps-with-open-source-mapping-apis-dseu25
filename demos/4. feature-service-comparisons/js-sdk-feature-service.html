@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to layers | Sample | ArcGIS Maps SDK for JavaScript</title>
+
+    <!-- Load Calcite components from CDN -->
+    <script type="module" src="https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js"></script>
+
+    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+    <script src="https://js.arcgis.com/4.34/"></script>
+
+    <!-- Load Map components from CDN-->
+    <script type="module" src="https://js.arcgis.com/4.34/map-components/"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <arcgis-map center="-97.469580,38.297482" zoom="4" basemap="gray-vector">
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-legend slot="bottom-left"></arcgis-legend>
+    </arcgis-map>
+
+    <script type="module">
+      // Import Map, FeatureLayer, and PopupTemplate classes from the CDN.
+      const FeatureLayer = await $arcgis.import("@arcgis/core/layers/FeatureLayer.js");
+
+      // Get a reference to the Map component element.
+      const viewElement = document.querySelector("arcgis-map");
+
+      // Reference the desired feature service in a FeatureLayer instance.
+      const featureLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Median_Income_by_Race_and_Age_Selp_Emp_Boundaries/FeatureServer/1"
+      });
+
+      // Add the feature layer to your Map class.
+      await viewElement.viewOnReady();
+      viewElement.map.add(featureLayer);
+    </script>
+  </body>
+</html>
